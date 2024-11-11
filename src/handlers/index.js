@@ -3,8 +3,13 @@ import { PACKET_TYPE_NAMES } from '../constants/packetTypes.js';
 import { CustomError } from '../utils/error/customError.js';
 import { ErrorCodes } from '../utils/error/errorCodes.js';
 import loginHandler from './login.handler.js';
-import registerHandler from './register.Handler.js';
-import matchingGameHandler from './game/matchingGameHandler.js';
+import monsterAttackBaseHandler from './monsterAttackBase.handler.js';
+import gameEndHandler from './gameEnd.handler.js';
+import registerHandler from './register.handler.js';
+import { towerPurchaseHandler, towerAttackHandler } from './tower.handler.js';
+import matchingGameHandler from './game/matchingGame.handler.js';
+import spawnMonsterHandler from './spawnMonster.handler.js';
+import deathMonsterHandler from './monsterDeath.handler.js';
 
 const handlers = {
   [HANDLER_IDS.REGISTER]: {
@@ -21,6 +26,36 @@ const handlers = {
     handler: matchingGameHandler,
     protoType: 'GamePacket',
     protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.MATCH_REQUEST],
+  },
+  [HANDLER_IDS.TOWER_PURCHASE]: {
+    handler: towerPurchaseHandler,
+    protoType: 'GamePacket',
+    protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.TOWER_PURCHASE],
+  },
+  [HANDLER_IDS.SPAWN_MONSTER]: {
+    handler: spawnMonsterHandler,
+    protoType: 'GamePacket',
+    protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.SPAWN_MONSTER],
+  },
+  [HANDLER_IDS.TOWER_ATTACK]: {
+    handler: towerAttackHandler,
+    protoType: 'GamePacket',
+    protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.TOWER_ATTACK],
+  },
+  [HANDLER_IDS.MONSTER_ATTACK_BASE]: {
+    handler: monsterAttackBaseHandler,
+    protoType: 'GamePacket',
+    protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.MONSTER_ATTACK_BASE],
+  },
+  [HANDLER_IDS.GAME_END]: {
+    handler: gameEndHandler,
+    protoType: 'GamePacket',
+    protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.GAME_END],
+  },
+  [HANDLER_IDS.MONSTER_DEATH]: {
+    handler: deathMonsterHandler,
+    protoType: 'GamePacket',
+    protoPayloadType: PACKET_TYPE_NAMES[HANDLER_IDS.MONSTER_DEATH],
   },
 };
 
